@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import logo from './logo.svg';
 import {BrowserRouter as Router, Link, Route} from 'react-router-dom'
-import {TodoApp} from "./TodoApp";
 import {Login} from "./Login";
+import {TodoPrincipal} from './TodoPrincipal'
 
 
 class App extends Component {
@@ -11,6 +11,9 @@ class App extends Component {
         super(props);
         this.state = {isLoggedIn: false, ruta:''};
         this.clickHandler = this.clickHandler.bind(this);
+        localStorage.setItem('user', "nicolas.ct@mail.com");
+        localStorage.setItem('nombre', "Nicolas Cortes")
+        localStorage.setItem('password', "contrasena");
     }
 
 
@@ -20,10 +23,10 @@ class App extends Component {
                 <Login clickHandler={this.clickHandler}/>
             );
             const TodoAppView = () => (
-                <TodoApp/>
+                <TodoPrincipal/>
             );
             if (this.state.isLoggedIn){
-                this.state.ruta = TodoApp;
+                this.state.ruta = TodoAppView;
             }
             else{
                 this.state.ruta = LoginView;
@@ -35,10 +38,6 @@ class App extends Component {
             return (
                 <Router>
                     <div className="App">
-                        <header className="App-header">
-                            <img src={logo} className="App-logo" alt="logo"/>
-                            <h1 className="Aepp-title">TODO React App</h1>
-                        </header>
                         <div>
                             <Route exact path="/" component={this.state.ruta}/>
                             <Route exact path="/Login" component={LoginView}/>
